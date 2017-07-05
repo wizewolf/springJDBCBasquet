@@ -1,0 +1,40 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!-- ?xml version = "1.0" encoding = "UTF-8"?>
+
+<beans xmlns = "http://www.springframework.org/schema/beans"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" 
+   xsi:schemaLocation = "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd ">
+
+ 	<import resource="database/Spring-Datasource.xml" />
+	<import resource="club/Spring-Club.xml" />    
+	<import resource="jugador/Spring-Jugador.xml" />    
+</beans>-->
+
+<beans
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+ 
+http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+ 
+    <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://190.57.224.130:3306/federacionBasquet" />
+        <property name="username" value="apa" />
+        <property name="password" value="2Jlg0abXPOhk7pcH" />
+    </bean>
+         
+        <bean id="jdbcTemplate"
+            class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate"> 
+            <!-- Utilizar constructor en vez de property name="dataSource" -->
+            <constructor-arg ref="dataSource" />
+        </bean>
+         
+        <bean id="clubDao"
+            class="com.lab2.registroDeJugadores.model.dao.club.ClubJdbcTemple">
+            <property name="jdbcTemplate" ref="jdbcTemplate" />
+        </bean>
+         
+</beans>
